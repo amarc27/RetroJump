@@ -73,7 +73,7 @@ function Score(x, y, color) {
     ctx.fillStyle = this.color;
     ctx.font = '16px sans-serif';
     ctx.fillText(Math.floor(iFrame), this.x, this.y);
-    }
+  }
 }
 
 function HeadBar(x, y, width, height, color) {
@@ -166,12 +166,15 @@ IronDoodleGame.prototype.checkIfGameOver = function() {
   if (this.player.getRefY() >= 600) {
     console.log("Game Over !");
 
+    // Draw a black message
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, 400, 600);
     ctx.font = '38px sans-serif';
     ctx.fillStyle = "white";
     ctx.fillText("Game over !", 90, 200);
     clearInterval(this.myInterval);
+
+    setScore(iFrame);
   }
 }
 
@@ -190,12 +193,34 @@ IronDoodleGame.prototype.drawEverything = function() {
 }
 
 
+// Change the best score is the current score is better
+function setScore (score) {
+  var bestScore = localStorage.getItem("bestScore");
+  if (score > bestScore)
+    localStorage.setItem("bestScore", score);
+}
+
+function getBestScore() {
+  var bestScore = localStorage.getItem("bestScore");
+  if (!bestScore)
+    bestScore = 0;
+  return bestScore;
+}
+
+function resetBestScore() {
+  localStorage.removeItem("bestScore");
+}
+
+function displayBestScore() {
+  document.getElementById("best-score").innerHTML = getBestScore();
+}
+
 window.onload = function() {
   document.getElementById("start-button").onclick = function() {
     game.startGame();
   };
 
-
+  displayBestScore();
 }
 
 
