@@ -15,7 +15,12 @@ body button {
   margin-bottom: 20px;
 }
 
-
 canvas {
   border: 1px solid black;
+}
+
+@media (max-width: 800px) {
+  canvas {
+    width: 90%;
+  }
 }

@@ -7,7 +7,14 @@ var height = 600;
 var bouncingForce = 0.025*height;
 var gravity = 0.001*height;
 var intervalFrame = 20;
+// var intervalFrame = 100;
 var midScreen = height / 5;
+
+var img = new Image();
+img.src = 'Elon.png';
+
+
+
 
 //JOUEUR
 function Player(x, y, color, radius, vx, vy) {
@@ -23,13 +30,12 @@ function Player(x, y, color, radius, vx, vy) {
     return this.y + speed*iFrame;
   }
   this.draw = function() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y + speed*iFrame, this.radius, 0, Math.PI*2, true);
-    ctx.closePath();
-    ctx.fillStyle = this.color;
-    ctx.fill();
+    ctx.drawImage(img, this.x - this.radius, this.y - this.radius + speed*iFrame, 2*this.radius, 2*this.radius);
+
   }
   this.nextMove = function(platforms) {
+    var isGoingToTouchAPlatform = false;
+    var yPlateformGoingToBeTouched = undefined;
     for (var i = 0; i < platforms.length; i++) {
       if (this.y + this.radius < platforms[i].y &&
           this.y + this.radius + this.vy > platforms[i].y &&
@@ -37,10 +43,21 @@ function Player(x, y, color, radius, vx, vy) {
           this.x < platforms[i].x + platforms[i].width
           ) {
         // this.vx = 0;
-        this.vy = -bouncingForce;
+        isGoingToTouchAPlatform = true;
+        yPlateformGoingToBeTouched = platforms[i].y;
+        console.log(platforms[i].power)
+        if (platforms[i].power === "super-bouncing")
+          this.vy = -2*bouncingForce;
+        else if (platforms[i].power === "low-bouncing")
+          this.vy = -bouncingForce/2;
+        else
+          this.vy = -bouncingForce;
       }
     }
-    this.y += this.vy;
+    if (yPlateformGoingToBeTouched)
+      this.y = yPlateformGoingToBeTouched-this.radius-1;
+    else
+      this.y += this.vy;
     this.vy += gravity;
 
     this.x += this.vx;
@@ -49,13 +66,16 @@ function Player(x, y, color, radius, vx, vy) {
   }
 }
 
+
+
 //platform
-function Platform(x, y, width, height, color) {
+function Platform(x, y, width, height, color, power) {
   this.x = x;
   this.y = y;
   this.width = width;
   this.height = height;
   this.color = color;
+  this.power = power;
   this.getRefY = function() {
     return this.y + speed*iFrame;
   }
@@ -92,14 +112,17 @@ function HeadBar(x, y, width, height, color) {
 
 //GAME
 function IronDoodleGame() {
-  this.draw
 }
+
+
+
+
 
 IronDoodleGame.prototype.startGame = function() {
   var that = this
   ctx =  document.getElementById("canvas").getContext("2d");
 
-  this.player = new Player(200, 250, "black", 10, 0, 1);
+  this.player = new Player(200, 180, "black", 25, 0, 1);
   this.platform1 = new Platform(150, 265, 100, 10, "black");
   this.platform2 = new Platform(150, 205, 100, 10, "black");
   this.platforms = [this.platform1, this.platform2];
@@ -110,7 +133,7 @@ IronDoodleGame.prototype.startGame = function() {
 
   that = this
   plats.forEach(function (plt) {
-    var topush = new Platform(plt.x, plt.y, plt.width, plt.height, plt.color)
+    var topush = new Platform(plt.x, plt.y, plt.width, plt.height, plt.color, plt.power)
     that.platforms.push(topush)
   })
 
@@ -179,7 +202,6 @@ IronDoodleGame.prototype.checkIfGameOver = function() {
 }
 
 
-
 //TOUT DESSINER
 IronDoodleGame.prototype.drawEverything = function() {
   ctx.clearRect(0, 0, 400, 600);
@@ -222,6 +244,7 @@ window.onload = function() {
 
   displayBestScore();
 }
+
 
 
 var plats = [
@@ -299,36 +322,30 @@ var plats = [
     "x": 213,
     "y": -3791,
     "width": 100,
-    "height": 10,
-    "color": "black"
-  },
-  {
-    "x": 360,
-    "y": -1606,
-    "width": 100,
-    "height": 10,
-    "color": "black"
+    "color": "green",
+    "power": "super-bouncing"
   },
   {
     "x": 440,
     "y": -3091,
     "width": 100,
     "height": 10,
-    "color": "black"
+    "color": "red",
+    "power": "low-bouncing"
   },
   {
     "x": 213,
     "y": -1856,
     "width": 100,
-    "height": 10,
-    "color": "black"
+    "color": "red",
+    "power": "low-bouncing"
   },
   {
     "x": 227,
     "y": -2358,
     "width": 100,
-    "height": 10,
-    "color": "black"
+    "color": "red",
+    "power": "low-bouncing"
   },
   {
     "x": 397,
