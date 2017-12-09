@@ -1,7 +1,16 @@
+@font-face {
+  font-family: "Designer Block";
+  src: url("DESIB___.ttf");
+}
+
 body {
   text-align: center;
-  margin-top: 50px;
-  font-family: sans-serif;
+  margin-top: 20px;
+  font-family: "Designer Block";
+  letter-spacing: 1px;
+  background-image: url("Images/MainBg.png");
+  background-repeat: repeat;
+  background-size: cover;
 }
 
 body button {
@@ -16,11 +25,12 @@ body button {
 }
 
 canvas {
-  border: 1px solid black;
+  border: 5px solid white;
+  max-width: 80vw;
+  max-height: 80vh;
 }
 
-@media (max-width: 800px) {
-  canvas {
-    width: 90%;
-  }
+p {
+  color: white;
+  letter-spacing: 2px;
 }

@@ -182,14 +182,14 @@ var plats = [
     "height": 10,
     "color": "white"
   },
-  {
-    "x": 102,
-    "y": -47,
-    "width": 100,
-    "height": 10,
-    "color": "white",
-    "power": "reachLevelBouncing"
-  },
+  // {
+  //   "x": 100,
+  //   "y": -47,
+  //   "width": 250,
+  //   "height": 40,
+  //   "color": "red",
+  //   "power": "toNextLevel"
+  // },
   {
     "x": 445,
     "y": -872,
@@ -345,8 +345,8 @@ var plats = [
     "color": "white"
   },
   {
-    "x": 376,
-    "y": -44,
+    "x": 476,
+    "y": 4,
     "width": 100,
     "height": 10,
     "color": "white"
