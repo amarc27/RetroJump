@@ -162,7 +162,7 @@ IronDoodleGame.prototype.startGame = function() {
   this.platforms.push(new Platform(150, 60, 100, 10, "white"))
   this.platforms.push(new Platform(250, 0, 100, 10, "white"))
   this.score = new Score(20, 30, "white");
-  this.monsterMaxence = new MonsterMaxence(200, -580, "white", 25);
+  this.monsterMaxence = new MonsterMaxence(200, -580, "white", 35);
 
 
 
@@ -225,7 +225,12 @@ IronDoodleGame.prototype.startGame = function() {
 
 //GAME OVER
 IronDoodleGame.prototype.checkIfGameOver = function() {
-  if (this.player.getRefY() >= 600) {
+  if ((this.player.getRefY() >= 600) ||
+      (this.player.y - this.player.radius < this.monsterMaxence.y + this.monsterMaxence.radius &&
+      this.player.y + this.player.radius > this.monsterMaxence.y - this.monsterMaxence.radius &&
+      this.player.x + this.player.radius > this.monsterMaxence.x - this.monsterMaxence.radius &&
+      this.player.x - this.player.radius < this.monsterMaxence.x + this.monsterMaxence.radius)
+      ) {
     console.log("Game Over !");
 
     // Draw the black background
