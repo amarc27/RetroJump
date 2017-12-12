@@ -226,7 +226,11 @@ IronDoodleGame.prototype.startGame = function() {
 
 //GAME OVER
 IronDoodleGame.prototype.checkIfGameOver = function() {
-  if (this.player.getRefY() >= 600) {
+  if ((this.player.getRefY() >= 600) ||
+  (this.player.y - this.player.radius < this.monsterMaxence.y + this.monsterMaxence.radius &&
+  this.player.y + this.player.radius > this.monsterMaxence.y - this.monsterMaxence.radius &&
+  this.player.x + this.player.radius > this.monsterMaxence.x - this.monsterMaxence.radius &&
+  this.player.x - this.player.radius < this.monsterMaxence.x + this.monsterMaxence.radius)){
     console.log("Game Over !");
 
     // Draw the black background
@@ -269,14 +273,14 @@ IronDoodleGame.prototype.checkIfGameOver = function() {
 }
 
 
-IronDoodleGame.prototype.whenAMonsterIsTouched = function() {
-  if (this.player.y - this.player.radius < this.monsterMaxence.y + this.monsterMaxence.radius &&
-  this.player.y + this.player.radius > this.monsterMaxence.y - this.monsterMaxence.radius &&
-  this.player.x + this.player.radius > this.monsterMaxence.x - this.monsterMaxence.radius &&
-  this.player.x - this.player.radius < this.monsterMaxence.x + this.monsterMaxence.radius) {
-
-  }
-}
+// IronDoodleGame.prototype.whenAMonsterIsTouched = function() {
+//   if (this.player.y - this.player.radius < this.monsterMaxence.y + this.monsterMaxence.radius &&
+//   this.player.y + this.player.radius > this.monsterMaxence.y - this.monsterMaxence.radius &&
+//   this.player.x + this.player.radius > this.monsterMaxence.x - this.monsterMaxence.radius &&
+//   this.player.x - this.player.radius < this.monsterMaxence.x + this.monsterMaxence.radius) {
+//
+//   }
+// }
 
 
 
