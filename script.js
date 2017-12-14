@@ -9,6 +9,8 @@ var gravity = 0.001*height;
 var intervalFrame = 20;
 var midScreen = height / 5;
 
+var test = "Foo";
+
 var playerImg = new Image();
 playerImg.src = 'Images/Elon.png';
 
